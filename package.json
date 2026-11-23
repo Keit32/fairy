@@ -18,8 +18,11 @@
 	"scripts": {
 		"dev": "tsx watch src/index.ts",
 		"start": "tsx src/index.ts",
-		"deploy": "tsx src/lib/utils/deploy-commands.ts",
+		"deploy": "tsx src/deploy-commands.ts",
 		"build": "tsc",
+		"typecheck": "tsc --noEmit",
+		"knip": "knip",
+		"prepare": "lefthook install",
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"check": "biome check --write .",
 		"format": "biome format --write .",
@@ -41,8 +44,12 @@
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.6.8",
+		"@commitlint/cli": "^21.2.4",
+		"@commitlint/config-conventional": "^21.2.4",
 		"@types/better-sqlite3": "^9.6.0",
 		"@types/node": "^26.6.6",
+		"knip": "^6.47.0",
+		"lefthook": "^2.2.2",
 		"tsx": "^4.23.15",
 		"typescript": "^7.0.2"
 	}
