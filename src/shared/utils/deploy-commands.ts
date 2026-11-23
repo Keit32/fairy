@@ -1,7 +1,7 @@
 import { REST, Routes } from "discord.js";
 import "dotenv/config";
-import { pingCommand } from "@/commands/ping.js";
-import { env } from "@/config/env.js";
+import { env } from "@config/env.js";
+import { collectCommandsJson } from "./collect-commands.js";
 
 const token = env.DISCORD_TOKEN;
 const clientId = env.CLIENT_ID;
@@ -11,7 +11,7 @@ if (!token || !clientId || !guildId) {
 	throw new Error("Missing DISCORD_TOKEN, CLIENT_ID, or GUILD_ID in .env");
 }
 
-const commands = [pingCommand.data.toJSON()];
+const commands = collectCommandsJson();
 const rest = new REST({ version: "10" }).setToken(token);
 
 await rest.put(Routes.applicationGuildCommands(clientId, guildId), {

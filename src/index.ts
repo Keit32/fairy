@@ -1,7 +1,9 @@
 import { Client, Events, GatewayIntentBits } from "discord.js";
 import "dotenv/config";
-import { pingCommand } from "@/commands/ping.js";
-import { env } from "@/config/env.js";
+import { env } from "@config/env.js";
+import { handleInteraction } from "@handlers/handle-interaction.js";
+import { collectCommands } from "@utils/collect-commands.js";
+import pino from "pino";
 
 const token = env.DISCORD_TOKEN;
 
@@ -9,22 +11,24 @@ if (!token) {
 	throw new Error("Missing DISCORD_TOKEN in .env");
 }
 
+const logger = pino();
+
 const client = new Client({
 	intents: [GatewayIntentBits.Guilds],
 });
 
-client.once(Events.ClientReady, (readyClient) => {
-	console.log(`Logged in as ${readyClient.user.tag}`);
-});
+async function main() {
+	const commands = collectCommands();
 
-client.on(Events.InteractionCreate, async (interaction) => {
-	if (!interaction.isChatInputCommand()) {
-		return;
-	}
+	client.once(Events.ClientReady, (readyClient) => {
+		console.log(`Logged in as ${readyClient.user.tag}`);
+	});
 
-	if (interaction.commandName === pingCommand.data.name) {
-		await pingCommand.execute(interaction);
-	}
-});
+	client.on(Events.InteractionCreate, (interaction) => {
+		handleInteraction(interaction, commands, logger);
+	});
 
-await client.login(token);
+	await client.login(token);
+}
+
+main();

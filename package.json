@@ -1,33 +1,42 @@
 {
 	"name": "fairy",
-	"author": "Keit",
 	"private": true,
-	"version": "0.0.1",
+	"author": "Keit",
 	"description": "Discord bot for server VoidHunters",
+	"version": "0.0.1",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Keit32/fairy.git"
+	},
+	"bugs": {
+		"url": "https://github.com/Keit32/fairy/issues"
+	},
+	"homepage": "https://github.com/Keit32/fairy#readme",
 	"main": "dist/index.js",
+	"type": "module",
 	"scripts": {
 		"dev": "tsx watch src/index.ts",
 		"start": "tsx src/index.ts",
-		"deploy": "tsx src/deploy-commands.ts",
+		"deploy": "tsx src/lib/utils/deploy-commands.ts",
 		"build": "tsc",
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"check": "biome check --write .",
 		"format": "biome format --write .",
 		"lint": "biome lint ."
 	},
-	"license": "MIT",
 	"devEngines": {
 		"packageManager": {
 			"name": "pnpm",
-			"version": "12.21.0",
+			"version": ">=12.0.0 <13.0.0",
 			"onFail": "download"
 		}
 	},
 	"packageManager": "pnpm@12.21.0",
-	"type": "module",
 	"dependencies": {
 		"discord.js": "^14.28.1",
 		"dotenv": "^18.0.10",
+		"pino": "^10.4.0",
 		"zod": "^4.6.7"
 	},
 	"devDependencies": {
