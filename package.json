@@ -18,7 +18,7 @@
 	"scripts": {
 		"dev": "tsx watch src/index.ts",
 		"start": "tsx src/index.ts",
-		"deploy": "tsx src/deploy-commands.ts",
+		"deploy": "tsx src/shared/utils/deploy-commands.ts",
 		"build": "tsc",
 		"typecheck": "tsc --noEmit",
 		"knip": "knip",
