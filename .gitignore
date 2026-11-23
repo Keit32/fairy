@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+*.tsbuildinfo
+
+# Environment variables (keep secrets and local IDs out of Git)
+.env
+.env.*
+!.env.example
+
+# SQLite database & WAL/SHM journal files
+data/
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+
+# Logs & runtime files
+logs/
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Editor & OS files
+.vscode/
+.DS_Store
+Thumbs.db
