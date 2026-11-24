@@ -5,8 +5,10 @@ export interface EmbedOptions {
 	color?: ColorResolvable;
 }
 
-export function createEmbed(options?: EmbedOptions): EmbedBuilder {
+export function createEmbed(_options?: EmbedOptions): EmbedBuilder {
 	const embed = new EmbedBuilder();
+
+	if (embed.length === 0) throw new Error("Embed cannot be empty");
 
 	return embed;
 }

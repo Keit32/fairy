@@ -7,11 +7,11 @@ import {
 	type RESTPostAPIChatInputApplicationCommandsJSONBody,
 } from "discord.js";
 
-let allCommands = [...generalCommands];
-
-if (env.ENVIRONMENT === "development") {
-	allCommands = [...allCommands, ...testCommands];
-}
+const combinedCommands = [...generalCommands];
+const allCommands =
+	env.ENVIRONMENT === "development"
+		? [...combinedCommands, ...testCommands]
+		: combinedCommands;
 
 export function collectCommands(): CommandsCollection {
 	const commands: CommandsCollection = new Collection();
