@@ -1,4 +1,6 @@
+import { commandExecutionErrorEmbed } from "@config/embeds.js";
 import type { CommandsCollection } from "@shared/types/commands.js";
+import { createEmbed } from "@utils/create-embed.js";
 import {
 	type Interaction,
 	type InteractionReplyOptions,
@@ -41,7 +43,7 @@ export async function handleInteraction(
 		);
 
 		const errorResponse: InteractionReplyOptions = {
-			content: "There was an error while executing this command!",
+			embeds: [createEmbed(commandExecutionErrorEmbed)],
 			flags: MessageFlags.Ephemeral,
 		};
 
