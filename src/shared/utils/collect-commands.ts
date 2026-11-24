@@ -1,11 +1,17 @@
+import { env } from "@config/env.js";
 import { generalCommands } from "@features/general/commands.js";
 import type { CommandsCollection } from "@shared/types/commands.js";
+import { testCommands } from "@test/commands.js";
 import {
 	Collection,
 	type RESTPostAPIChatInputApplicationCommandsJSONBody,
 } from "discord.js";
 
-const allCommands = [...generalCommands];
+const combinedCommands = [...generalCommands];
+const allCommands =
+	env.ENVIRONMENT === "development"
+		? [...combinedCommands, ...testCommands]
+		: combinedCommands;
 
 export function collectCommands(): CommandsCollection {
 	const commands: CommandsCollection = new Collection();

@@ -11,7 +11,7 @@ if (!token) {
 	throw new Error("Missing DISCORD_TOKEN in .env");
 }
 
-const logger = pino();
+export const logger = pino();
 
 const client = new Client({
 	intents: [GatewayIntentBits.Guilds],

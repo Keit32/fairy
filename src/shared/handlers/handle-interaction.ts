@@ -1,5 +1,9 @@
 import type { CommandsCollection } from "@shared/types/commands.js";
-import type { Interaction } from "discord.js";
+import {
+	type Interaction,
+	type InteractionReplyOptions,
+	MessageFlags,
+} from "discord.js";
 import type { Logger } from "pino";
 
 export async function handleInteraction(
@@ -12,17 +16,33 @@ export async function handleInteraction(
 	const command = commands.get(interaction.commandName);
 
 	if (!command) {
-		logger.error(`No command matching ${interaction.commandName} was found.`);
+		logger.error(
+			{
+				commandName: interaction.commandName,
+				userId: interaction.user.id,
+				guildId: interaction.guildId,
+			},
+			"No matching command was found.",
+		);
 		return;
 	}
 
 	try {
 		await command.execute(interaction);
 	} catch (error) {
-		logger.error(error);
-		const errorResponse = {
+		logger.error(
+			{
+				err: error,
+				commandName: interaction.commandName,
+				userId: interaction.user.id,
+				guildId: interaction.guildId,
+			},
+			"Failed to execute command.",
+		);
+
+		const errorResponse: InteractionReplyOptions = {
 			content: "There was an error while executing this command!",
-			ephemeral: true,
+			flags: MessageFlags.Ephemeral,
 		};
 
 		if (interaction.replied || interaction.deferred) {

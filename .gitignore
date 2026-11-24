@@ -1,6 +1,9 @@
 # Dependencies
 node_modules/
 
+# Test folder
+src/test/
+
 # Build output
 dist/
 build/

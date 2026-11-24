@@ -9,6 +9,7 @@
 		"outDir": "./dist",
 		"paths": {
 			"@/*": ["./src/*"],
+			"@test/*": ["./src/test/*"],
 			"@features/*": ["./src/features/*"],
 			"@shared/*": ["./src/shared/*"],
 			"@config/*": ["./src/shared/config/*"],
