@@ -1,4 +1,9 @@
 import {
+	FAIRY_COLORS,
+	FAIRY_STRINGS,
+	FAIRY_URLS,
+} from "@shared/config/embeds.js";
+import {
 	type AuthorInput,
 	type EmbedAuthorOptions,
 	type EmbedFieldsOptions,
@@ -44,10 +49,12 @@ export function createEmbed(options?: EmbedOptions): EmbedBuilder {
 
 	const embed = new EmbedBuilder();
 
+	if (parsed.color !== undefined) embed.setColor(parsed.color);
+	else embed.setColor(FAIRY_COLORS.primary);
+
 	if (parsed.title !== undefined) embed.setTitle(parsed.title);
 	if (parsed.description !== undefined)
 		embed.setDescription(parsed.description);
-	if (parsed.color !== undefined) embed.setColor(parsed.color);
 	if (parsed.titleURL !== undefined) embed.setURL(parsed.titleURL);
 	if (parsed.imageURL !== undefined) embed.setImage(parsed.imageURL);
 	if (parsed.thumbnailURL !== undefined)
@@ -60,7 +67,11 @@ export function createEmbed(options?: EmbedOptions): EmbedBuilder {
 
 	if (parsed.footer !== undefined) {
 		embed.setFooter(buildFooter(parsed.footer));
-	}
+	} else
+		embed.setFooter({
+			text: FAIRY_STRINGS.footerText,
+			iconURL: FAIRY_URLS.footerIconUrl,
+		});
 
 	if (parsed.fields !== undefined) {
 		embed.addFields(buildFields(parsed.fields));
